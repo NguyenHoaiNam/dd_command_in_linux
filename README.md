@@ -35,8 +35,9 @@ Trong đó:
 ###### b. Các tùy chọn
 |Tùy chọn | Ý nghĩa |
 |---------|---------|
-|bs=bytes| đọc bao nhiêu byte cùng một lúc |
-|count=Blocks| Số lượng đọc hoặc ghi theo blocks |
-|ibs| tương tự như tùy chọn bs, nếu không có Bytes thì mặc định là 512 |
-|obs| viết bao nhiêu byte cùng một lúc |
+|bs=Bytes |Đọc và ghi bao nhiêu byte một lần |
+|cbs=Bytes|Chuyển đổi bao nhiêu byte một lần |
+|count=Blocks | Copy Blocks một lần thực hiện |
+|if | đọc từ đâu vào |
+|of | Chuyển dữ liệu đâu ra |
 
