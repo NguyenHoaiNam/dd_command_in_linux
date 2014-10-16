@@ -35,9 +35,10 @@ Trong đó:
 ###### b. Các tùy chọn
 |Tùy chọn | Ý nghĩa |
 |---------|---------|
-|bs=Bytes |Đọc và ghi bao nhiêu byte một lần |
+|bs=Bytes |Quá trình đọc (ghi) bao nhiêu byte một lần đọc (ghi) |
 |cbs=Bytes|Chuyển đổi bao nhiêu byte một lần |
-|count=Blocks | Copy Blocks một lần thực hiện |
-|if | đọc từ đâu vào |
-|of | Chuyển dữ liệu đâu ra |
+|count=Blocks | thực hiện bao nhiêu Block trong quá trình thực thi câu lệnh |
+|if | Chỉ dường dẫn đọc đầu vào |
+|of | Chỉ đường dẫn ghi đâu ra|
+|
 
