@@ -7,6 +7,8 @@ Mục lục:
 2. Khái niệm và ứng dụng của câu lệnh dd
 3. Cú pháp và các trường tùy chọn
 4. Các ví dụ
+5. Tình huống áp dụng trong thực tế
+6. Kết luận
 
 #### 1. Mở đầu và khuyến nghị
 
@@ -158,6 +160,35 @@ Oki nào bây giờ kiểm tra lại xem thành công chưa. Sử dụng lệnh
 ```
 swapon -s
 ```
+<img class="image__pic js-image-pic" src="http://i.imgur.com/Rw4Zg2o.png" alt="" id="screenshot-image">
+ 
+ Lúc này tổng dung lượng phân vùng swap sẽ là 2G ( do trước đó tôi cài đặt cho phân vùng swap là 1G trước rồi )
+ 
+ <img class="image__pic js-image-pic" src="http://i.imgur.com/Wb2mdPV.png" alt="" id="screenshot-image">
+ 
+ Nếu bạn muốn tạo vùng swap không bị mất khi reboot lại máy. Bạn vào file này rồi chỉnh sửa như sau:
+ ```
+ vi /etc/fstab
+ rồi chỉnh sửa:
+ /root/swap                 swap                    swap                defaults        0  0
+ ```
+ 
+ VD2: Ngoài ra bạn còn có thể kết hợp với câu lênh crontab để có thể lâp lịch sao chép dữ liêu ổ cứng của bạn theo định kì
+Đầu tiên vào một file sh để chạy
+```
+vi dd_command.sh
+với nội dung là:
+dd if=/dev/sda1 of=/dev/sdb1 conv=noerror,sync
+```
+Tạo một crotab cho file chạy
 
+```
+crontab 0 10 * * * sh dd_command.sh
+```
+Lúc này đến 10h hàng ngày quá trình sao chép dữ liệu giữa ổ sda1 sang ổ sdb1 được thực hiện
 
+#### 6. Kết luận
+
+Bài viết trên đây tôi đã giới thiệu cho các bạn về câu lệnh dd một câu lệnh thường xuyên được sử dụng trong quản trị hệ thống Linux. Ngoài những tùy chọn tổi liệt kê là những tùy chọn thường xuyên được sử dụng trong thực tế thì vẫn còn một số tùy chọn khác thêm nữa. [Các bạn có thể xem đây đủ tại đây](http://www.computerhope.com/unix/dd.htm). 
+Mọi thông tin liên hệ các bạn có thể liên hệ với tôi qua skype: **namptit307** hoặc vào [facebook](https://www.facebook.com/nam.nguyenhoai.71404) để chúng ta có thể thao luận thêm về câu lệnh này cũng như các tùy chọn của nó. Cảm ơn các bạn đã đọc bài viết của tôi!!! 
 
