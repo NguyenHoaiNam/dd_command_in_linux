@@ -27,7 +27,7 @@ Câu lệnh `dd` trong linux là một trong những câu lệnh thường xuyê
 #### 3. Cú pháp và các trường tùy chọn
 ###### a. Cú pháp
 ```
-#dd if=<source> of=<target> option
+#dd if=<địa chỉ đầu vào> of=<địa chỉ đầu ra> option
 ```
 Trong đó:
 - if=<soure> địa chỉ nguồn của dữ liệu nó sẽ bắt đầu đọc
@@ -40,11 +40,11 @@ Trong đó:
 |bs=Bytes |Quá trình đọc (ghi) bao nhiêu byte một lần đọc (ghi) |
 |cbs=Bytes|Chuyển đổi bao nhiêu byte một lần |
 |count=Blocks | thực hiện bao nhiêu Block trong quá trình thực thi câu lệnh |
-|if | Chỉ dường dẫn đọc đầu vào |
-|of | Chỉ đường dẫn ghi đâu ra|
+|if | Chỉ đường dẫn đọc đầu vào |
+|of | Chỉ đường dẫn ghi đầu ra|
 |ibs=bytes | Chỉ ra số byte một lần đọc |
 |obs=bytes | Chỉ ra số byte một lần ghi |
-|skip=bloc | Bỏ qua bao nhiêu block đầu vào |
+|skip=blocks | Bỏ qua bao nhiêu block đầu vào |
 |conv=Convs | Chỉ ra tác vụ cụ thể của câu lệnh, các tùy chọn được ghi dưới bảng sau đây |
 
 **Các tùy chọn của conv**
@@ -56,8 +56,8 @@ Trong đó:
 |lcase | Chuyển đổi từ chữ thường lên hết thành chữ in hoa |
 |ucase | Chuyển đổi từ chữ in hoa sang chữ thường |
 |nocreat | Không tạo ra file đầu ra |
-|noerror | tiếp tục sao chép dữ liệu khi đầu vào bị lỗi |
-|sync | Đồng bộ dữ liệu với ô đang sao chép sang |
+|noerror | Tiếp tục sao chép dữ liệu khi đầu vào bị lỗi |
+|sync | Đồng bộ dữ liệu với ổ đang sao chép sang |
 
 
 *Lưu ý:* Khi bạn định dạng số lượng byte mỗi lần đọc. Mặc định nó được tính theo đơn vị là kb. Bạn có thể thêm một số trường sau để báo định dạng khác:
@@ -72,8 +72,8 @@ Trong đó:
 - GB = (1000 * 1000 * 1000) byte
 - G = (1024 * 1024 * 1024) byte
 
-#### 4. Các ví dụ:
-###### a. Sao lưu - phục hồi toàn bộ ổ cứng hoặc phân vùng trong ô cứng.
+#### 4. Các ví dụ trong hay được sử dụng trong thực tế:
+###### a. Sao lưu - phục hồi toàn bộ ổ cứng hoặc phân vùng trong ổ cứng
 - Sao lưu toàn bộ dữ liệu ổ cứng sao ổ cứng khác:
 ```
 #dd if=/dev/sda of=/dev/sdb conv=noerror,sync
@@ -97,23 +97,23 @@ dd if=/dev/sda2 of=/dev/sdb2 bs=512 conv=noerror,sync
 ```
 dd if=/root/sda1.img of=/dev/sda1
 ```
-- Sao lưu từ CDroom
+- Sao lưu từ đĩa CDroom
 ```
 dd if=/dev/cdrom of=/root/cdrom.img conv=noerror
 ```
 
 ###### b.Sao lưu phục hồi MBR
-Việc sao lưu lại mbr là việc làm cần thiết đối với hệ thống linux. nó đề phòng cho việc khi virut có thể nhảy được hẳn vào vùng mbr. Lúc bày bất kì một phần mềm diệt virut nào cũng không diệt được con virut này. Cách hay nhất là cài đặt lại mbr và lúc đó việc sao chép mbr lúc trước khi nhiễm sẽ phát huy tác dụng:
-- Sao chép mbr
+Việc sao lưu lại mbr là việc làm cần thiết đối với hệ thống linux. nó đề phòng cho việc khi virut có thể nhảy được hẳn vào vùng MBR. Lúc bày bất kì một phần mềm diệt virut nào cũng không diệt được con virut này. Cách hay nhất là cài đặt lại mbr và lúc đó việc sao chép MBR lúc trước khi nhiễm sẽ phát huy tác dụng:
+- Sao chép MBR
 ```
 dd if=/dev/sda1 of=/root/mbr.txt bs=512 count=1
 ```
-- Phục hồi lại mbr
+- Phục hồi lại MBR
 ```
 dd if=/root/mbr.txt of=/dev/sda1
 ```
 ###### c. Chuyển đổi chữ thường thành chữ in hoa
-- Chuyển chữ thường thành chứ in hoa
+- Chuyển chữ thường thành chữ in hoa
 ```
 dd if=/root/test.doc of=/root/test1.doc conv=ucase
 ```
@@ -131,7 +131,7 @@ dd if=/dev/zero of=/root/file1 bs=100M count=1
 
 #### 5. Các tình huống áp dụng trong thực tế
 
-Các vi dụ tôi vừa nêu trên đều sử dụng nhiều trong thực tế. Ngoài ra còn kết hợp với một số câu lệnh để làm thêm tác vụ khác
+Các ví dụ tôi vừa nêu trên đều sử dụng rất nhiều trong thực tế. Ngoài ra còn kết hợp với một số câu lệnh để làm thêm tác vụ khác như:
 
 - VD1: Kết hợp với câu lệnh mkswap để tạo phân vùng swap cho máy 
     - Sử dụng câu lênh dd để tạo một phân vùng trống có kích cỡ 1G:
@@ -191,4 +191,14 @@ Lúc này đến 10h hàng ngày quá trình sao chép dữ liệu giữa ổ sd
 
 Bài viết trên đây tôi đã giới thiệu cho các bạn về câu lệnh dd một câu lệnh thường xuyên được sử dụng trong quản trị hệ thống Linux. Ngoài những tùy chọn tổi liệt kê là những tùy chọn thường xuyên được sử dụng trong thực tế thì vẫn còn một số tùy chọn khác thêm nữa. [Các bạn có thể xem đây đủ tại đây](http://www.computerhope.com/unix/dd.htm). 
 Mọi thông tin liên hệ các bạn có thể liên hệ với tôi qua skype: **namptit307** hoặc vào [facebook](https://www.facebook.com/nam.nguyenhoai.71404) để chúng ta có thể thao luận thêm về câu lệnh này cũng như các tùy chọn của nó. Cảm ơn các bạn đã đọc bài viết của tôi!!! 
+Tài liệu tham khảo:
+
+[Link 1](http://www.computerhope.com/unix/dd.htm)
+
+[Link 2](http://linoxide.com/linux-command/linux-dd-command-create-1gb-file/)
+
+[Link 3](http://www.thegeekstuff.com/2010/10/dd-command-examples/)
+
+[Link wiki](http://en.wikipedia.org/wiki/Dd_(Unix))
+
 
